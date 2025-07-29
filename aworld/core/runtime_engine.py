@@ -127,12 +127,8 @@ class LocalRuntime(RuntimeEngine):
         return results
 
 
-class K8sRuntime(LocalRuntime):
-    """K8s runtime key is 'k8s', and execute tasks in kubernetes cluster."""
-
-
 class KubernetesRuntime(LocalRuntime):
-    """kubernetes runtime key is 'kubernetes', and execute tasks in kubernetes cluster."""
+    """Kubernetes runtime, handles 'kubernetes' and 'k8s', and executes tasks in a Kubernetes cluster."""
 
 
 class SparkRuntime(RuntimeEngine):
@@ -141,8 +137,8 @@ class SparkRuntime(RuntimeEngine):
     Note: Spark runtime must in driver end.
     """
 
-    def __init__(self, engine_options):
-        super(SparkRuntime, self).__init__(engine_options)
+    def __init__(self, conf: RunConfig):
+        super(SparkRuntime, self).__init__(conf)
 
     def _build_engine(self):
         from pyspark.sql import SparkSession
@@ -186,8 +182,8 @@ class RayRuntime(RuntimeEngine):
     resource allocation and communication etc. advanced features.
     """
 
-    def __init__(self, engine_options):
-        super(RayRuntime, self).__init__(engine_options)
+    def __init__(self, conf: RunConfig):
+        super(RayRuntime, self).__init__(conf)
 
     def _build_engine(self):
         import ray
